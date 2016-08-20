@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>PsychicGame</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+			  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+			  crossorigin="anonymous">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<style type="text/css">
+			body{
+					color:black;
+					content: #ebebeb;
+					width:60%;
+					height:60;
+					line-height:40px;
+					font-family: "Lucida Console", Courier, monospace;
+					font-size: 18px;
+					text-align: center;
+					margin:auto;
+				}
+		</style>
+	</head>
+
+	<body class ="container">
+
+		<div class="panel panel-default">
+
+			<header class="panel-heading"> <h1>PSYCHIC GAME </h1></header>
+			<!-- This is where the code will go that we created-->
+			<div  class="panel-body">
+			<div id = "game">
+				<p>press any Alphabet to start playing</p>
+			</div>
+
+			<div id = "winCount">
+				<p>wincount:0</p>
+			</div>
+
+			
+			<div id = "remainingGuesses">
+				<p>Remaininggusses:9</p>
+			</div>
+
+			<div id = "losses">
+				<p>intial loses :0</p>
+			</div>
+
+			<div id = "yourGusses">
+				<p>yourGusses</p>
+			</div>
+			<div id = "yourLetter">
+			</div>
+		</div>
+		<script type="text/javascript">
+			// Sets the computer choices
+			var computerChoices = ['a','b','c','d','e','f','g','h','i','j','k',
+				'l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+
+			// Declare tha counters to 0
+
+			var winCounts = 0;
+			var losses = 0;
+			var remaingGuesses = 9;
+			var userGuessArray=[];
+				// This sets the computer guess equal to the random.
+
+		 	var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+		 	console.log("computerGuess:" + computerGuess);
+
+			var yourGusses ="";
+			// when the user presses the key it records the keypress and then sets it to userGuessChar
+			
+			document.onkeyup = function(event) {
+				console.log("hello");
+				var userGuessChar = String.fromCharCode(event.keyCode).toLowerCase();
+				console.log("userGuessChar:" + userGuessChar);
+				
+				// This sets the computer guess equal to the random.
+
+		 		// Making sure the user chooses alphabet
+
+		 		if (computerChoices.indexOf(userGuessChar) !== -1)
+		 		{		
+	 				if( userGuessChar == computerGuess){
+	 					document.getElementById("yourLetter").innerHTML = 
+								"Your Character  " +'<br>' + userGuessChar;
+
+	 					winCounts++;
+
+	 					document.getElementById("winCount").innerHTML = "wincount :" + winCounts + "<br>" ;
+	 					document.getElementById("remainingGuesses").innerHTML = "remaingGuesses : 9" ;
+	 					remaingGuesses = 9;
+	 					yourGusses = "";
+	 					document.getElementById("yourGusses").innerHTML = "yourGusses:" + yourGusses ;
+	 					computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+	 				} else if (	userGuessChar !== computerGuess)  {
+	 					if (userGuessArray.indexOf(userGuessChar) == -1) {
+									
+	 						remaingGuesses--;
+	 						if (yourGusses == "") {
+	 							 yourGusses = userGuessChar;
+	 						} else {
+	 							yourGusses = yourGusses + "," + userGuessChar;
+	 						}
+	 						document.getElementById("yourGusses").innerHTML = "yourGusses:" + yourGusses ;
+
+	 						userGuessArray.push(userGuessChar);
+	 					}
+	 					if (remaingGuesses == 0) {
+	 						yourGusses = "";
+	 						document.getElementById("yourGusses").innerHTML = "yourGusses:" + yourGusses ;
+	 						computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+	 						losses++;
+	 						remaingGuesses = 9;
+	 						document.getElementById("losses").innerHTML = "losses :" + losses ;
+	 					}
+	 					document.getElementById("remainingGuesses").innerHTML =
+	 						 	"remaingGuesses :" + remaingGuesses ;
+	 					
+	 				}
+	 		
+		 			
+				}
+			}
+		
+
+		</script>	
+
+	</body>
+</html>
